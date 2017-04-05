@@ -117,6 +117,7 @@ add_cache ()
     touch "${cachedir}/$(sanitize ${1})"
 }
 
+env
 for pkg in $downloads; do
     name=$(basename ${pkg} .tar.gz)
     cmake_opts="${extra_cmake_opts[$name]}"
@@ -139,14 +140,16 @@ for pkg in $downloads; do
       curl -L -O --insecure ${pkg} || die "Failed to download ${pkg}"
       tar --strip-components=1 -xf *.tar.gz || die "Failed to un-tar ${name}"
       if test -x configure; then
-        CC=gcc CXX=g++ ./configure --prefix=${prefix} \
-                       $configure_opts
+        ./configure --prefix=${prefix} \
+                    $configure_opts
       elif test -f CMakeLists.txt; then
         mkdir build && cd build
         echo $CC
         echo $CXX
+        $CC --version
+        $CXX --version
         which cmake
-        CC=gcc CXX=g++ cmake -DCMAKE_INSTALL_PREFIX=${prefix} $cmake_opts ..
+        cmake -DCMAKE_INSTALL_PREFIX=${prefix} $cmake_opts ..
       fi
       if test "$name" = "openmpi-2.0.2"; then
         wget https://raw.githubusercontent.com/LLNL/STAT/develop/dyninst_patches/openmpi-2.0.2_reattach.patch
@@ -216,9 +219,9 @@ for url in $checkouts; do
           ./bootstrap
         fi
         if test -x configure; then
-          CC=gcc CXX=g++ ./configure --prefix=${prefix} \
-                           --sysconfdir=${prefix}/etc \
-                           $configure_opts
+          ./configure --prefix=${prefix} \
+                      --sysconfdir=${prefix}/etc \
+                      $configure_opts
           cat config.log
         elif test -f CMakeLists.txt; then
             mkdir build && cd build
