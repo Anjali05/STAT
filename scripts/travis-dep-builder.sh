@@ -140,12 +140,12 @@ for pkg in $downloads; do
       tar --strip-components=1 -xf *.tar.gz || die "Failed to un-tar ${name}"
       if test -x configure; then
         CC=gcc CXX=g++ ./configure --prefix=${prefix} \
-                       --sysconfdir=${prefix}/etc \
                        $configure_opts
       elif test -f CMakeLists.txt; then
         mkdir build && cd build
         echo $CC
         echo $CXX
+        which cmake
         CC=gcc CXX=g++ cmake -DCMAKE_INSTALL_PREFIX=${prefix} $cmake_opts ..
       fi
       if test "$name" = "openmpi-2.0.2"; then
