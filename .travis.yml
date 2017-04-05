@@ -6,16 +6,16 @@ cache:
 
 sudo: required
 
-dist: trusty
+#dist: trusty
 
 compiler:
   - gcc-4.8
 
 addons:
   apt:
-    hostname: travistest
-    sources:
-      - ubuntu-toolchain-r-test
+#    hostname: travistest
+#    sources:
+#      - ubuntu-toolchain-r-test
     packages:
       - cmake
       - cmake-data
