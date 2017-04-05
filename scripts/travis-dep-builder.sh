@@ -132,14 +132,14 @@ for pkg in $downloads; do
     # note that we need to build openmpi and STAT's examples with gfortran installed
     # however, having this package causes dyninst to fail to build
     #if test "$name" = "openmpi-2.0.2"; then
-    #if test "$name" = "v9.3.0"; then
-    #   say "rebuiding ${name}"
-    #else
+    if test "$name" = "v9.3.0"; then
+       say "rebuiding ${name}"
+    else
     if check_cache "$name"; then
        say "Using cached version of ${name}"
        continue
     fi
-    #fi
+    fi
     if test "$name" = "v9.3.0"; then
       export CC=gcc-4.8
       export CXX=g++-4.8
