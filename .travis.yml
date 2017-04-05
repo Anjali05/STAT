@@ -27,7 +27,7 @@ addons:
       - munge
 # note that we need to build openmpi and STAT's examples with gfortran installed
 # however, having this package causes dyninst to fail to build
-      - gfortran
+#      - gfortran
       - gdb
 
 env:
