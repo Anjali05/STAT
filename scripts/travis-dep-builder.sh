@@ -11,11 +11,11 @@ cachedir=$HOME/local/.cache
 # Ordered list of software to download and install into $prefix.
 #  NOTE: Code currently assumes .tar.gz suffix...
 #
+#https://www.open-mpi.org/software/ompi/v2.0/downloads/openmpi-2.0.2.tar.gz \
+#https://github.com/LLNL/graphlib/archive/v3.0.0.tar.gz \
+#https://github.com/dyninst/mrnet/archive/MRNet-4_1_0.tar.gz \
+#https://www.prevanders.net/libdwarf-20161124.tar.gz \
 downloads="\
-https://www.open-mpi.org/software/ompi/v2.0/downloads/openmpi-2.0.2.tar.gz \
-https://github.com/LLNL/graphlib/archive/v3.0.0.tar.gz \
-https://github.com/dyninst/mrnet/archive/MRNet-4_1_0.tar.gz \
-https://www.prevanders.net/libdwarf-20161124.tar.gz \
 https://github.com/dyninst/dyninst/archive/v9.3.0.tar.gz"
 #https://github.com/LLNL/LaunchMON/releases/download/v1.0.2/launchmon-v1.0.2.tar.gz \
 
@@ -138,12 +138,14 @@ for pkg in $downloads; do
       curl -L -O --insecure ${pkg} || die "Failed to download ${pkg}"
       tar --strip-components=1 -xf *.tar.gz || die "Failed to un-tar ${name}"
       if test -x configure; then
-        cc=gcc cxx=g++ ./configure --prefix=${prefix} \
+        CC=gcc CXX=g++ ./configure --prefix=${prefix} \
                        --sysconfdir=${prefix}/etc \
                        $configure_opts
       elif test -f CMakeLists.txt; then
         mkdir build && cd build
-        cmake -DCMAKE_INSTALL_PREFIX=${prefix} $cmake_opts ..
+        echo $CC
+        echo $CXX
+        CC=gcc CXX=g++ cmake -DCMAKE_INSTALL_PREFIX=${prefix} $cmake_opts ..
       fi
       if test "$name" = "openmpi-2.0.2"; then
         wget https://raw.githubusercontent.com/LLNL/STAT/develop/dyninst_patches/openmpi-2.0.2_reattach.patch
