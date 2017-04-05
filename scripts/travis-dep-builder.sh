@@ -143,7 +143,7 @@ for pkg in $downloads; do
     if test "$name" = "v9.3.0"; then
       export CC=gcc-4.8
       export CXX=g++-4.8
-      export CXXFLAGS==-std=c++11
+      export CXXFLAGS=-std=c++11
       export V=1
       export VERBOSE=1
     else
