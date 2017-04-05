@@ -11,11 +11,11 @@ cachedir=$HOME/local/.cache
 # Ordered list of software to download and install into $prefix.
 #  NOTE: Code currently assumes .tar.gz suffix...
 #
-#https://www.open-mpi.org/software/ompi/v2.0/downloads/openmpi-2.0.2.tar.gz \
-#https://github.com/LLNL/graphlib/archive/v3.0.0.tar.gz \
-#https://github.com/dyninst/mrnet/archive/MRNet-4_1_0.tar.gz \
-#https://www.prevanders.net/libdwarf-20161124.tar.gz \
 downloads="\
+https://www.open-mpi.org/software/ompi/v2.0/downloads/openmpi-2.0.2.tar.gz \
+https://github.com/LLNL/graphlib/archive/v3.0.0.tar.gz \
+https://github.com/dyninst/mrnet/archive/MRNet-4_1_0.tar.gz \
+https://www.prevanders.net/libdwarf-20161124.tar.gz \
 https://cmake.org/files/v3.7/cmake-3.7.2.tar.gz \
 https://github.com/dyninst/dyninst/archive/v9.3.0.tar.gz"
 #https://github.com/LLNL/LaunchMON/releases/download/v1.0.2/launchmon-v1.0.2.tar.gz \
@@ -118,6 +118,12 @@ add_cache ()
 }
 
 env
+ls -l $HOME
+ls -l $HOME/local
+ls -l $HOME/local/lib
+ls -l $HOME/local/bin
+rm -rf $HOME/local/lib
+
 for pkg in $downloads; do
     name=$(basename ${pkg} .tar.gz)
     cmake_opts="${extra_cmake_opts[$name]}"
@@ -186,14 +192,17 @@ for pkg in $downloads; do
         pwd
         ls
         pushd libdwarf
-        cp libdwarf.so $HOME/local/lib
-        cp libdwarf.so.1 $HOME/local/lib
-        cp libdwarf.h  $HOME/local/include
-        cp dwarf.h $HOME/local/include
+        mkdir -p $HOME/local/lib
+        cp libdwarf.so $HOME/local/lib/libdwarf.so
+        cp libdwarf.so.1 $HOME/local/lib/libdwarf.so.1
+        mkdir -p $HOME/local/include
+        cp libdwarf.h  $HOME/local/include/libdwarf.h
+        cp dwarf.h $HOME/local/include/dwarf.h
         popd
       fi
       if test "$name" = "v9.3.0"; then
-        cp libiberty/libiberty.a $HOME/local/lib
+        mkdir -p $HOME/local/lib
+        cp libiberty/libiberty.a $HOME/local/lib/libiberty.a
       fi
     ) || die "Failed to build and install $name"
     add_cache "$name"
@@ -246,7 +255,6 @@ for url in $checkouts; do
       make PREFIX=${prefix} $make_opts install &&
       make check PREFIX=${prefix} $make_opts
       if test "$name" = "launchmon"; then
-        cat config.log
         pushd test/src
         echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
         export PATH=./:$PATH
