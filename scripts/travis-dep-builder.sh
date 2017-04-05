@@ -149,6 +149,7 @@ for url in $checkouts; do
           CC=gcc CXX=g++ ./configure --prefix=${prefix} \
                            --sysconfdir=${prefix}/etc \
                            $configure_opts
+          cat config.log
         elif test -f CMakeLists.txt; then
             mkdir build && cd build
             cmake -DCMAKE_INSTALL_PREFIX=${prefix} $cmake_opts ..
@@ -158,6 +159,7 @@ for url in $checkouts; do
       make PREFIX=${prefix} $make_opts install &&
       make check PREFIX=${prefix} $make_opts
       if test "$name" = "launchmon"; then
+        cat config.log
         pushd test/src
         echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
         export PATH=./:$PATH
