@@ -134,6 +134,13 @@ for pkg in $downloads; do
        continue
     fi
     #fi
+    if test "$name" = "v9.3.0"; then
+      export CC=gcc-4.8
+      export CXX=g++-4.8
+    else
+      export CC=gcc
+      export CXX=g++
+    fi
     mkdir -p ${name}  || die "Failed to mkdir ${name}"
     (
       cd ${name} &&
@@ -195,6 +202,8 @@ done
 
 export VERBOSE=1
 export V=1
+export CC=gcc
+export CXX=g++
 for url in $checkouts; do
     name=$(basename ${url} .git)
     sha1="${checkout_sha1[$name]}"
