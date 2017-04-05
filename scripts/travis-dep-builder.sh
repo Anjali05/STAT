@@ -16,6 +16,7 @@ cachedir=$HOME/local/.cache
 #https://github.com/dyninst/mrnet/archive/MRNet-4_1_0.tar.gz \
 #https://www.prevanders.net/libdwarf-20161124.tar.gz \
 downloads="\
+https://cmake.org/files/v3.7/cmake-3.7.2.tar.gz \
 https://github.com/dyninst/dyninst/archive/v9.3.0.tar.gz"
 #https://github.com/LLNL/LaunchMON/releases/download/v1.0.2/launchmon-v1.0.2.tar.gz \
 
