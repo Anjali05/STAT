@@ -140,8 +140,13 @@ for pkg in $downloads; do
       curl -L -O --insecure ${pkg} || die "Failed to download ${pkg}"
       tar --strip-components=1 -xf *.tar.gz || die "Failed to un-tar ${name}"
       if test -x configure; then
+        echo $CC
+        echo $CXX
+        $CC --version
+        $CXX --version
         ./configure --prefix=${prefix} \
                     $configure_opts
+        cat /home/travis/build/LLNL/STAT/cmake-3.7.2/Bootstrap.cmk/cmake_bootstrap.log
       elif test -f CMakeLists.txt; then
         mkdir build && cd build
         echo $CC
