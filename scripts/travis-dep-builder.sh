@@ -131,23 +131,21 @@ for pkg in $downloads; do
     # note that we need to build openmpi and STAT's examples with gfortran installed
     # however, having this package causes dyninst to fail to build
     #if test "$name" = "openmpi-2.0.2"; then
-    if test "$name" = "v9.3.0"; then
-       say "rebuiding ${name}"
-    else
+#    if test "$name" = "v9.3.0"; then
+#       say "rebuiding ${name}"
+#    else
     if check_cache "$name"; then
        say "Using cached version of ${name}"
        continue
     fi
-    fi
+#    fi
     if test "$name" = "v9.3.0"; then
       export CC=gcc-4.8
       export CXX=g++-4.8
-      export CXXFLAGS=-std=c++11
       export V=1
       export VERBOSE=1
     else
       export CC=gcc
-      unset CXXFLAGS
       export CXX=g++
     fi
     mkdir -p ${name}  || die "Failed to mkdir ${name}"
@@ -225,15 +223,15 @@ for url in $checkouts; do
     cmake_opts="${extra_cmake_opts[$name]}"
     configure_opts="${extra_configure_opts[$name]}"
     cache_name="$name:$sha1:$make_opts:$configure_opts:$cmake_opts"
-#    if test "$name" = "launchmon"; then
-#      say "rebuilding $name"
-#      ls -l $HOME/local/bin
-#    else
+    if test "$name" = "launchmon"; then
+      say "rebuilding $name"
+      ls -l $HOME/local/bin
+    else
     if check_cache "$cache_name"; then
        say "Using cached version of ${name}"
        continue
     fi
-#    fi
+    fi
     git clone ${url} ${name} || die "Failed to clone ${url}"
     (
       cd ${name} || die "cd failed"
