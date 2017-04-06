@@ -21,7 +21,7 @@ addons:
       - cmake-data
       - libelf-dev
       - libdwarf-dev
-      - libboost-all1.53-dev
+      - libboost-all-dev
       - swig
       - graphviz
       - munge
