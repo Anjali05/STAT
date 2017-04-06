@@ -205,6 +205,7 @@ for pkg in $downloads; do
         popd
       fi
       if test "$name" = "v9.3.0"; then
+        ls -l /home/travis/build/LLNL/STAT/v9.3.0/build/boost/src/boost/stage/lib
         mkdir -p $HOME/local/lib
         cp libiberty/libiberty.a $HOME/local/lib/libiberty.a
       fi

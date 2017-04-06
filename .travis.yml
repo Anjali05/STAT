@@ -46,6 +46,8 @@ before_install:
   - sudo apt-get install libboost-system1.53-dev
   - sudo apt-get install libboost-regex1.53-dev
   - sudo apt-get install libboost-filesystem1.53-dev  
+  - sudo apt-get install libboost-thread1.53-dev  
+  - sudo apt-get install libboost-datetime1.53-dev  
   - export CC="gcc-4.8"
   - export CXX="g++-4.8"
   - eval $(./scripts/travis-dep-builder.sh --printenv)
