@@ -54,6 +54,8 @@ before_install:
   - ./scripts/travis-dep-builder.sh --cachedir=$HOME/local/.cache
 
 script:
+  - export CC=gcc-4.8
+  - export CXX=g++-4.8
   - ls -l $HOME/local
   - ls -l $HOME/local/lib
   - ls -l $HOME/local/bin
