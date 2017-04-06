@@ -132,9 +132,9 @@ for pkg in $downloads; do
     cache_name="$name:$sha1:$make_opts:$configure_opts:$cmake_opts"
     # note that we need to build openmpi and STAT's examples with gfortran installed
     # however, having this package causes dyninst to fail to build
-    #if test "$name" = "openmpi-2.0.2"; then
+    if test "$name" = "openmpi-2.0.2"; then
 #    if test "$name" = "v9.3.0"; then
-    if test "$name" = "mrnet_5.0.1"; then
+#    if test "$name" = "mrnet_5.0.1"; then
        say "rebuiding ${name}"
     else
     if check_cache "$name"; then
@@ -142,7 +142,8 @@ for pkg in $downloads; do
        continue
     fi
     fi
-    if test "$name" = "v9.3.0"; then
+    #if test "$name" = "v9.3.0"; then
+    if test "$name" = "openmpi-2.0.2"; then
       export CC=gcc-4.8
       export CXX=g++-4.8
       export V=1
