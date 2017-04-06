@@ -47,6 +47,7 @@ before_install:
   - sudo apt-get install libboost-regex1.53-dev
   - sudo apt-get install libboost-filesystem1.53-dev  
   - sudo apt-get install libboost-thread1.53-dev  
+  - sudo apt-get install libboost-timer1.53-dev  
   - sudo apt-get install libboost-date-time1.53-dev  
   - export CC="gcc-4.8"
   - export CXX="g++-4.8"

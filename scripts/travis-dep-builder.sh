@@ -134,13 +134,14 @@ for pkg in $downloads; do
     # however, having this package causes dyninst to fail to build
     #if test "$name" = "openmpi-2.0.2"; then
 #    if test "$name" = "v9.3.0"; then
-#       say "rebuiding ${name}"
-#    else
+    if test "$name" = "mrnet_5.0.1"; then
+       say "rebuiding ${name}"
+    else
     if check_cache "$name"; then
        say "Using cached version of ${name}"
        continue
     fi
-#    fi
+    fi
     if test "$name" = "v9.3.0"; then
       export CC=gcc-4.8
       export CXX=g++-4.8
@@ -161,8 +162,7 @@ for pkg in $downloads; do
         $CC --version
         $CXX --version
         ./configure --prefix=${prefix} \
-                    $configure_opts
-        cat /home/travis/build/LLNL/STAT/cmake-3.7.2/Bootstrap.cmk/cmake_bootstrap.log
+                    $configure_opts  || head config.log
       elif test -f CMakeLists.txt; then
         mkdir build && cd build
         echo $CC
@@ -225,15 +225,15 @@ for url in $checkouts; do
     cmake_opts="${extra_cmake_opts[$name]}"
     configure_opts="${extra_configure_opts[$name]}"
     cache_name="$name:$sha1:$make_opts:$configure_opts:$cmake_opts"
-    if test "$name" = "launchmon"; then
-      say "rebuilding $name"
-      ls -l $HOME/local/bin
-    else
+#    if test "$name" = "launchmon"; then
+#      say "rebuilding $name"
+#      ls -l $HOME/local/bin
+#    else
     if check_cache "$cache_name"; then
        say "Using cached version of ${name}"
        continue
     fi
-    fi
+#    fi
     git clone ${url} ${name} || die "Failed to clone ${url}"
     (
       cd ${name} || die "cd failed"
