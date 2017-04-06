@@ -122,7 +122,6 @@ ls -l $HOME
 ls -l $HOME/local
 ls -l $HOME/local/lib
 ls -l $HOME/local/bin
-rm -rf $HOME/local/lib
 
 for pkg in $downloads; do
     name=$(basename ${pkg} .tar.gz)
@@ -132,14 +131,14 @@ for pkg in $downloads; do
     # note that we need to build openmpi and STAT's examples with gfortran installed
     # however, having this package causes dyninst to fail to build
     #if test "$name" = "openmpi-2.0.2"; then
-    if test "$name" = "v9.3.0"; then
-       say "rebuiding ${name}"
-    else
-    if check_cache "$name"; then
-       say "Using cached version of ${name}"
-       continue
-    fi
-    fi
+#    if test "$name" = "v9.3.0"; then
+#       say "rebuiding ${name}"
+#    else
+#    if check_cache "$name"; then
+#       say "Using cached version of ${name}"
+#       continue
+#    fi
+#    fi
     if test "$name" = "v9.3.0"; then
       export CC=gcc-4.8
       export CXX=g++-4.8
@@ -229,10 +228,10 @@ for url in $checkouts; do
 #      say "rebuilding $name"
 #      ls -l $HOME/local/bin
 #    else
-    if check_cache "$cache_name"; then
-       say "Using cached version of ${name}"
-       continue
-    fi
+#    if check_cache "$cache_name"; then
+#       say "Using cached version of ${name}"
+#       continue
+#    fi
 #    fi
     git clone ${url} ${name} || die "Failed to clone ${url}"
     (
