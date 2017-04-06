@@ -21,7 +21,7 @@ addons:
       - cmake-data
       - libelf-dev
       - libdwarf-dev
-      - libboost-all-dev
+      - libboost-all1.53-dev
       - swig
       - graphviz
       - munge
@@ -47,7 +47,7 @@ before_install:
   - sudo apt-get install libboost-regex1.53-dev
   - sudo apt-get install libboost-filesystem1.53-dev  
   - sudo apt-get install libboost-thread1.53-dev  
-  - sudo apt-get install libboost-datetime1.53-dev  
+  - sudo apt-get install libboost-date-time1.53-dev  
   - export CC="gcc-4.8"
   - export CXX="g++-4.8"
   - eval $(./scripts/travis-dep-builder.sh --printenv)
