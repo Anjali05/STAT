@@ -11,10 +11,11 @@ cachedir=$HOME/local/.cache
 # Ordered list of software to download and install into $prefix.
 #  NOTE: Code currently assumes .tar.gz suffix...
 #
+#https://github.com/dyninst/mrnet/archive/MRNet-4_1_0.tar.gz \
 downloads="\
 https://www.open-mpi.org/software/ompi/v2.0/downloads/openmpi-2.0.2.tar.gz \
 https://github.com/LLNL/graphlib/archive/v3.0.0.tar.gz \
-https://github.com/dyninst/mrnet/archive/MRNet-4_1_0.tar.gz \
+ftp://ftp.cs.wisc.edu/paradyn/mrnet/mrnet_5.0.1.tar.gz \
 https://www.prevanders.net/libdwarf-20161124.tar.gz \
 https://cmake.org/files/v3.7/cmake-3.7.2.tar.gz \
 https://github.com/dyninst/dyninst/archive/v9.3.0.tar.gz"
@@ -27,10 +28,11 @@ declare -A checkout_sha1=(\
 ["launchmon"]="a7799a90e8e0a7eaa335135569e0762cc0f0c99d" 
 )
 
+#["MRNet-4_1_0"]="--enable-shared" \
 declare -A extra_configure_opts=(\
 ["launchmon-v1.0.2"]="--with-test-rm=orte --with-test-ncore-per-CN=2 --with-test-nnodes=1 --with-test-rm-launcher=$HOME/local/bin/mpirun --with-test-installed" \
 ["launchmon"]="--with-test-rm=orte --with-test-ncore-per-CN=2 --with-test-nnodes=1 --with-test-rm-launcher=$HOME/local/bin/mpirun --with-test-installed" \
-["MRNet-4_1_0"]="--enable-shared" \
+["mrnet_5.0.1"]="--enable-shared" \
 ["libdwarf-20161124"]="--enable-shared --disable-nonshared" \
 )
 
